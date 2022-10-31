@@ -6,7 +6,7 @@ const dadosUsuario = {
     massa: null
 }
 
-campoAltura.addEventListener("change", function(event) {
+campoAltura.addEventListener("change", event => {
     dadosUsuario.altura = Number(event.target.value);
     console.log(dadosUsuario)
 });
@@ -23,7 +23,7 @@ botao.addEventListener("click", event => {
     const valorIMC = (dadosUsuario.massa / (dadosUsuario.altura ** 2)).toFixed(2);
     const situacaoUsuario = null;
 
-    switch (key) {
+    switch (valorIMC) {
         case valorIMC < 17:
             situacaoUsuario = "Muito abaixo do peso.";
             break;
