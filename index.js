@@ -21,42 +21,32 @@ botao.addEventListener("click", event => {
     const paragrafoExibeSituacao = document.getElementById("exibeSituacao");
     
     const valorIMC = (dadosUsuario.massa / (dadosUsuario.altura ** 2)).toFixed(2);
-    const situacaoUsuario = null;
-
-    switch (valorIMC) {
-        case valorIMC < 17:
-            situacaoUsuario = "Muito abaixo do peso.";
-            break;
-
-        case valorIMC >= 17 && valorIMC < 18.5:
-            situacaoUsuario = "Abaixo do peso.";
-            break;
-
-        case valorIMC >= 18.5 && valorIMC < 24.5:
-            situacaoUsuario = "Peso normal."
-            break;
-
-        case valorIMC >= 25 && valorIMC < 30:
-            situacaoUsuario = "Acima do peso."
-            break;
-
-        case valorIMC >= 30 && valorIMC < 35:
-            situacaoUsuario = "Obesidade."
-            break;
-
-        case valorIMC >= 35 && valorIMC < 40:
-            situacaoUsuario = "Obesidade severa."
-            break
-
-        case valorIMC >= 40:
-            situacaoUsuario = "Obesidade mórbida."
-            break;
-
-        default:
-            console.error("Um erro ocorreu na verificação da situação do usuário.");
-            break;
-    }
+    const situacaoUsuario = testaSituacao(valorIMC);
 
     paragrafoExibeIMC.innerHTML = `${valorIMC} kg/m².`;
-    paragrafoExibeSituacao.innerHTML = `${situacaoUsuario}.`;
-})
+    paragrafoExibeSituacao.innerHTML = `${situacaoUsuario}`;
+});
+
+function testaSituacao(valorIMC) {
+    if (valorIMC < 17) {
+        return "Muito abaixo do peso.";
+    }
+    else if (valorIMC >= 17 && valorIMC < 18.5) {
+        return "Abaixo do peso.";        
+    }
+    else if (valorIMC >= 18.5 && valorIMC < 24.5) {
+        return "Peso normal.";
+    }
+    else if (valorIMC >= 25 && valorIMC < 30){
+        return "Acima do peso.";
+    }
+    else if (valorIMC >= 30 && valorIMC < 35) {
+        return "Obesidade.";
+    }
+    else if (valorIMC >= 35 && valorIMC < 40) {
+        return "Obesidade severa."
+    }
+    else {
+        return "Obesidade mórbida."
+    }
+}
