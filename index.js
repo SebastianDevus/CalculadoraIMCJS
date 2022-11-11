@@ -1,54 +1,71 @@
-const campoAltura = document.getElementById("alturaUsuario");
-const campoMassa = document.getElementById("massaUsuario");
-const botaoQueCalcula = document.getElementById("botaoCalcular");
-const dadosUsuario = {
+// Adiciona variáveis para armazenar campos necessários
+let campoAltura = null;
+let campoMassa = null;
+let botaoQueCalcula = null;
+let paragrafoExibeIMC = null;
+let paragrafoExibeSituacao = null;
+
+// Armazena altura e massa
+let dadosUsuario = {
     altura: null,
     massa: null
 }
 
-// Quando o campoAltura muda, o valor nele é armazenado na propriedade "altura" do objeto dadosUsuário
-campoAltura.addEventListener("change", event => {
-    dadosUsuario.altura = Number(event.target.value);
-});
+// Chama Setup quando o DOM for carregado
+document.addEventListener("DOMContentLoaded", setup);
 
-// Quando o campoMassa muda, o valor nele é armazenado na propriedade "massa" do objeto dadosUsuário
-campoMassa.addEventListener("change", event => {
-    dadosUsuario.massa = Number(event.target.value);
-});
+function setup() {
+    // Obtém os campos necessários
+    campoAltura = document.getElementById("alturaUsuario");
+    campoMassa = document.getElementById("massaUsuario");
+    botaoQueCalcula = document.getElementById("botaoCalcular");
+    paragrafoExibeIMC = document.getElementById("exibeIMC");
+    paragrafoExibeSituacao = document.getElementById("exibeSituacao");
 
-// Quando o usuário clica no botão que calcula, o IMC é calculado, a situação é averiguada e os resultados são exibidos
-botaoQueCalcula.addEventListener("click", event => {
-    const paragrafoExibeIMC = document.getElementById("exibeIMC");
-    const paragrafoExibeSituacao = document.getElementById("exibeSituacao");
-    
-    const valorIMC = (dadosUsuario.massa / (dadosUsuario.altura ** 2)).toFixed(2);
-    const situacaoUsuario = testaSituacao(valorIMC);
+    // Quando o campoAltura muda, o valor nele é armazenado na propriedade "altura" do objeto dadosUsuário
+    campoAltura.addEventListener("change", () => dadosUsuario.altura = Number(campoAltura.value));
 
-    paragrafoExibeIMC.innerHTML = `${valorIMC} kg/m².`;
-    paragrafoExibeSituacao.innerHTML = `${situacaoUsuario}`;
-});
+    // Quando o campoMassa muda, o valor nele é armazenado na propriedade "massa" do objeto dadosUsuário
+    campoMassa.addEventListener("change", () => dadosUsuario.massa = Number(campoMassa.value));
 
-// Averigua a situação do usuário
+    // Quando o usuário clica no botão que calcula, o IMC é calculado, a situação é averiguada e os resultados são exibidos
+    botaoQueCalcula.addEventListener("click", () => {
+        const valorIMC = (dadosUsuario.massa / (dadosUsuario.altura ** 2)).toFixed(2);
+        const situacaoUsuario = testaSituacao(valorIMC);
+
+        paragrafoExibeIMC.innerText = `${valorIMC} kg/m².`;
+        paragrafoExibeSituacao.innerText = `${situacaoUsuario}`;
+    });
+}
+
 function testaSituacao(valorIMC) {
-    if (valorIMC < 17) {
-        return "Muito abaixo do peso.";
-    }
-    else if (valorIMC >= 17 && valorIMC < 18.5) {
-        return "Abaixo do peso.";        
-    }
-    else if (valorIMC >= 18.5 && valorIMC < 24.5) {
-        return "Peso normal.";
-    }
-    else if (valorIMC >= 25 && valorIMC < 30){
-        return "Acima do peso.";
-    }
-    else if (valorIMC >= 30 && valorIMC < 35) {
-        return "Obesidade.";
-    }
-    else if (valorIMC >= 35 && valorIMC < 40) {
-        return "Obesidade severa."
-    }
-    else {
-        return "Obesidade mórbida."
+    // Assegura que o valor de IMC usado será numérico
+    let IMC = Number(valorIMC)
+
+    // Averigua a situação do usuário
+    switch (true) {
+        case (IMC < 17):
+            return "Muito abaixo do peso.";
+
+        case (IMC < 18.5):
+            return "Abaixo do peso."
+        
+        case (IMC < 25):
+            return "Peso normal.";
+
+        case (IMC < 30):
+            return "Acima do peso.";
+
+        case (IMC < 35):
+            return "Obesidade.";
+
+        case (IMC < 40):
+            return "Obesidade severa.";
+
+        case (IMC >= 40):
+            return "Obesidade mórbida.";
+
+        default:
+            return "Um erro ocorreu.";
     }
 }
