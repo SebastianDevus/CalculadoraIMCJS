@@ -1,22 +1,23 @@
 const campoAltura = document.getElementById("alturaUsuario");
 const campoMassa = document.getElementById("massaUsuario");
-const botao = document.getElementById("botaoCalcular");
+const botaoQueCalcula = document.getElementById("botaoCalcular");
 const dadosUsuario = {
     altura: null,
     massa: null
 }
 
+// Quando o campoAltura muda, o valor nele é armazenado na propriedade "altura" do objeto dadosUsuário
 campoAltura.addEventListener("change", event => {
     dadosUsuario.altura = Number(event.target.value);
-    console.log(dadosUsuario)
 });
 
+// Quando o campoMassa muda, o valor nele é armazenado na propriedade "massa" do objeto dadosUsuário
 campoMassa.addEventListener("change", event => {
     dadosUsuario.massa = Number(event.target.value);
-    console.log(dadosUsuario)
 });
 
-botao.addEventListener("click", event => {
+// Quando o usuário clica no botão que calcula, o IMC é calculado, a situação é averiguada e os resultados são exibidos
+botaoQueCalcula.addEventListener("click", event => {
     const paragrafoExibeIMC = document.getElementById("exibeIMC");
     const paragrafoExibeSituacao = document.getElementById("exibeSituacao");
     
@@ -27,6 +28,7 @@ botao.addEventListener("click", event => {
     paragrafoExibeSituacao.innerHTML = `${situacaoUsuario}`;
 });
 
+// Averigua a situação do usuário
 function testaSituacao(valorIMC) {
     if (valorIMC < 17) {
         return "Muito abaixo do peso.";
