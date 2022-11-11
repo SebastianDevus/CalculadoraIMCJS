@@ -4,6 +4,7 @@ let campoMassa = null;
 let botaoQueCalcula = null;
 let paragrafoExibeIMC = null;
 let paragrafoExibeSituacao = null;
+let divExibeResultado = null;
 
 // Armazena altura e massa
 let dadosUsuario = {
@@ -21,6 +22,7 @@ function setup() {
     botaoQueCalcula = document.getElementById("botaoCalcular");
     paragrafoExibeIMC = document.getElementById("exibeIMC");
     paragrafoExibeSituacao = document.getElementById("exibeSituacao");
+    divExibeResultado = document.getElementById("exibeCalculos");
 
     // Quando o campoAltura muda, o valor nele é armazenado na propriedade "altura" do objeto dadosUsuário
     campoAltura.addEventListener("change", () => dadosUsuario.altura = Number(campoAltura.value));
@@ -35,6 +37,7 @@ function setup() {
 
         paragrafoExibeIMC.innerText = `${valorIMC} kg/m².`;
         paragrafoExibeSituacao.innerText = `${situacaoUsuario}`;
+        divExibeResultado.hidden = 0;
     });
 }
 
