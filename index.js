@@ -32,12 +32,14 @@ function setup() {
 
     // Quando o usuário clica no botão que calcula, o IMC é calculado, a situação é averiguada e os resultados são exibidos
     botaoQueCalcula.addEventListener("click", () => {
+        if (dadosUsuario.altura != 0 && dadosUsuario.massa != 0) {
         const valorIMC = (dadosUsuario.massa / (dadosUsuario.altura ** 2)).toFixed(2);
         const situacaoUsuario = testaSituacao(valorIMC);
 
         paragrafoExibeIMC.innerText = `${valorIMC} kg/m².`;
         paragrafoExibeSituacao.innerText = `${situacaoUsuario}`;
         divExibeResultado.hidden = 0;
+        }
     });
 }
 
